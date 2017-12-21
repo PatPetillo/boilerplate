@@ -4,7 +4,7 @@ import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
-import { Main, Home, Login, Signup, UserHome } from './components';
+import { Main, Home } from './components';
 import { me } from './store';
 
 /**
@@ -16,21 +16,11 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
     return (
       <Router history={history}>
         <Main>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            {
-              isLoggedIn &&
-              <Switch>
-                <Route path="/userPage" component={UserHome} />
-              </Switch>
-            }
-            <Route component={Login} />
           </Switch>
         </Main>
       </Router>
@@ -41,9 +31,7 @@ class Routes extends Component {
 /**
  * CONTAINER
  */
-const mapState = state => ({
-  isLoggedIn: !!state.user.id,
-});
+const mapState = state => ({});
 
 const mapDispatch = dispatch => ({
   loadInitialData() {
@@ -58,5 +46,4 @@ export default connect(mapState, mapDispatch)(Routes);
  */
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
 };

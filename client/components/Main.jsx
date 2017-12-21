@@ -11,24 +11,16 @@ import { logout } from '../store';
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const { children, handleClick, isLoggedIn } = props;
+  const { children } = props;
 
   return (
     <div>
       <h1>BoilerPlate</h1>
       <div>
         {
-          isLoggedIn ?
-            <div>
-              <NavLink to="/home">Home</NavLink>
-              <button onClick={handleClick}>Logout</button>
-            </div>
-            :
-            <div>
-              <NavLink to="/"><button>Home Page</button></NavLink>
-              <NavLink to="/login"><button>Login Page</button></NavLink>
-              <NavLink to="/signup"><button>Sign Up Page</button></NavLink>
-            </div>
+          <div>
+            <NavLink to="/"><button>Home Page</button></NavLink>
+          </div>
         }
       </div>
       {children}
@@ -39,13 +31,9 @@ const Main = (props) => {
 /**
  * CONTAINER
  */
-const mapState = state => ({ isLoggedIn: !!state.user.id });
+const mapState = state => ({ });
 
-const mapDispatch = dispatch => ({
-  handleClick() {
-    dispatch(logout());
-  },
-});
+const mapDispatch = dispatch => ({});
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
@@ -56,6 +44,4 @@ export default withRouter(connect(mapState, mapDispatch)(Main));
  */
 Main.propTypes = {
   children: PropTypes.objectOf(PropTypes.any).isRequired,
-  handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
 };
